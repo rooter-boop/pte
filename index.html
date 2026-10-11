@@ -48,9 +48,32 @@
     <div class="container">
         <h1>PTE Engine</h1>
         <p>Motor dosyasını sisteminize hemen indirin.</p>
-        <!-- Dosya adı tam olarak belirttiğiniz gibi pteEngine.py şeklinde ayarlandı -->
-        <a href="pteEngine.py" class="install-btn" download>Install PTE Engine</a>
+        <button id="downloadBtn" class="install-btn">Install PTE Engine</button>
     </div>
+
+    <script>
+        // Senin verdiğin pteEngine.py kodunun birebir içeriği
+        const pythonCode = `import installprogram
+
+sin = input(">>")
+if sin == "install":
+    installprogram.install(program)
+    print("ProgramInstalled")
+`;
+
+        // Butona tıklandığında dosyayı dinamik olarak oluşturan ve indiren mekanizma
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const blob = new Blob([pythonCode], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'pteEngine.py'; // Tam istediğin dosya adı
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+    </script>
 
 </body>
 </html>
